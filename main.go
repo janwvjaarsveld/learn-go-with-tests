@@ -1,12 +1,5 @@
 package main
 
-import (
-	"os"
-	"time"
-
-	"example.com/learnGoWithTests/mocking"
-)
-
 //
 // func main() {
 // 	list := linkedList.LinkedList{}
@@ -22,16 +15,29 @@ import (
 // 	list.Show()
 // }
 
-type ConfigurableSleeper struct {
-	duration time.Duration
-	sleep    func(time.Duration)
+// type ConfigurableSleeper struct {
+// 	duration time.Duration
+// 	sleep    func(time.Duration)
+// }
+
+// func (c *ConfigurableSleeper) Sleep() {
+// 	c.sleep(c.duration)
+// }
+
+type MyStruct struct {
+	Name        string
+	shouldPrint bool
 }
 
-func (c *ConfigurableSleeper) Sleep() {
-	c.sleep(c.duration)
+func (m *MyStruct) PrintName() {
+	if m.shouldPrint {
+		println(m.Name)
+	}
 }
 
 func main() {
-	sleeper := &ConfigurableSleeper{1 * time.Second, time.Sleep}
-	mocking.Countdown(os.Stdout, sleeper)
+	myStruct := MyStruct{Name: "Hello", shouldPrint: true}
+	myStruct.PrintName()
+	myStruct.shouldPrint = false
+	myStruct.PrintName()
 }
